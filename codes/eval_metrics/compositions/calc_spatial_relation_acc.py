@@ -139,7 +139,7 @@ def cal_acc(gt_objs, pred_objs, level):
     relative_relations = ["between", "among", "in the middle of"]
     true_count = 0
     for img_id, sample in enumerate(gt_objs):
-        img_id += (level * int(len(gt_objs) / 3))
+        img_id += (level * int(len(gt_objs)))
         miss_flag = False
         # Get the whole predicted classes in this image:
         pred_cls = [pred_objs[img_id][obj_id]['cls'] for obj_id in pred_objs[img_id].keys()]
@@ -213,38 +213,38 @@ def cal_acc(gt_objs, pred_objs, level):
             if len(sample['relations']) == 2:  # normal relation
                 # Check first relation:
                 if sample['relations'][0] == "on the right of":
-                    if not (_check_right(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and
-                            (_check_right(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']))):
+                    if not (_check_right(sorted_pred_objs[0]['cords'], sorted_pred_objs[2]['cords']) and
+                            (_check_right(sorted_pred_objs[1]['cords'], sorted_pred_objs[2]['cords']))):
                         continue
                 elif sample['relations'][0] == "on the left of":
-                    if not (_check_left(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and
-                            (_check_left(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']))):
+                    if not (_check_left(sorted_pred_objs[0]['cords'], sorted_pred_objs[2]['cords']) and
+                            (_check_left(sorted_pred_objs[1]['cords'], sorted_pred_objs[2]['cords']))):
                         continue
                 elif sample['relations'][0] in above_spatial_words:
-                    if not (_check_above(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and
-                            (_check_above(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']))):
+                    if not (_check_above(sorted_pred_objs[0]['cords'], sorted_pred_objs[2]['cords']) and
+                            (_check_above(sorted_pred_objs[1]['cords'], sorted_pred_objs[2]['cords']))):
                         continue
                 elif sample['relations'][0] in below_spatial_words:
-                    if not (_check_below(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and
-                            (_check_below(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']))):
+                    if not (_check_below(sorted_pred_objs[0]['cords'], sorted_pred_objs[2]['cords']) and
+                            (_check_below(sorted_pred_objs[1]['cords'], sorted_pred_objs[2]['cords']))):
                         continue
 
                 # Check second relation:
                 if sample['relations'][1] == "on the right of":
-                    if _check_right(sorted_pred_objs[0]['cords'], sorted_pred_objs[4]['cords']) and \
-                            _check_right(sorted_pred_objs[1]['cords'], sorted_pred_objs[4]['cords']):
+                    if _check_right(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and \
+                            _check_right(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']):
                         true_count += 1
                 elif sample['relations'][1] == "on the left of":
-                    if _check_left(sorted_pred_objs[0]['cords'], sorted_pred_objs[4]['cords']) and \
-                            _check_left(sorted_pred_objs[1]['cords'], sorted_pred_objs[4]['cords']):
+                    if _check_left(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and \
+                            _check_left(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']):
                         true_count += 1
                 elif sample['relations'][1] in above_spatial_words:
-                    if _check_above(sorted_pred_objs[0]['cords'], sorted_pred_objs[4]['cords']) and \
-                            _check_above(sorted_pred_objs[1]['cords'], sorted_pred_objs[4]['cords']):
+                    if _check_above(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and \
+                            _check_above(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']):
                         true_count += 1
                 elif sample['relations'][1] in below_spatial_words:
-                    if _check_below(sorted_pred_objs[0]['cords'], sorted_pred_objs[4]['cords']) and \
-                            _check_below(sorted_pred_objs[1]['cords'], sorted_pred_objs[4]['cords']):
+                    if _check_below(sorted_pred_objs[0]['cords'], sorted_pred_objs[3]['cords']) and \
+                            _check_below(sorted_pred_objs[1]['cords'], sorted_pred_objs[3]['cords']):
                         true_count += 1
 
             else:  # between relation
